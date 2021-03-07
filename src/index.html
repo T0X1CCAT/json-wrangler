@@ -9,30 +9,38 @@
 
                 color: lawngreen;
             }
-
+            .controls {
+                display: flex;
+                justify-content: space-evenly;
+            }
             .button {
                 background-color: #4CAF50;
                 border: none;
                 color: white;
-                padding: 3px 13px;
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
                 font-size: 16px;
-                margin: 4px 2px;
+                margin: 0px 10px 0px 10px;
                 cursor: pointer;
+                border-radius: 3px;
+            }
+            #searchText{
+                margin: 0px 0px 0px 30px;
             }
 
         </style>
     </head>
         
     <body>
-    <div>
-        <button class="button" id="reload">Reload</button>
-        <button class="button" id="copy">Copy</button>
-        <button class="button" id="convertToJavascript">Convert to JS</button>
-        <input type="text" placeholder="type to search" id="searchText"/><button class="button" id="find">Find</button>
-    </div>
+        <div class="controls">
+            <div>
+                <button class="button" id="reload">Reload</button>
+                <button class="button" id="convertToJavascript">Convert to JS</button>
+                <input type="text" placeholder="type to search" id="searchText"/>
+                <button class="button" id="find">Find</button>
+            </div>
+        </div>    
         <div >
             <pre id="jsonDisplay">
                 

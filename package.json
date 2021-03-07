@@ -1,8 +1,7 @@
 {
   "name": "json-wrangler",
   "version": "1.0.0",
-  "description": "Formats json found on clipboard and displays it in an electon window\"",
-  "main": "index.js",
+  "description": "Formats json found on clipboard and displays it in an electron window\"",
   "author": "Tom Hanel",
   "license": "MIT",
   "scripts": {
@@ -32,9 +31,13 @@
   "dependencies": {
     "electron-log": "^4.3.2",
     "javascript-stringify": "^2.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-json-view": "^1.21.1",
     "source-map-support": "^0.5.16"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.12.13",
     "electron": "8.2.0",
     "electron-builder": "^22.4.1",
     "electron-webpack": "^2.8.2",

@@ -17,7 +17,6 @@ function createMainWindow() {
       nodeIntegration: true
     }
   });
-  //mainWindow.hide();
 
   if (isDevelopment) {
     mainWindow.webContents.openDevTools()
@@ -27,7 +26,6 @@ function createMainWindow() {
     logger.log('port', process.env.ELECTRON_WEBPACK_WDS_PORT);
     mainWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
   } else {
-    logger.log(__dirname)
     mainWindow.loadURL(`file://${__dirname}/index.html`);
   }
 
@@ -35,8 +33,7 @@ function createMainWindow() {
     logger.log('ready to convert');
     convert();
   });
-
-
+  
   ipc.on('reload', () => {
     convert();
   });
@@ -45,30 +42,25 @@ function createMainWindow() {
     logger.log('shutdown');
     mainWindow = null;
   });
-
-  ipc.on('copy', () => {
-    copyToClipboard();
-  });
-
   
   const copyToClipboard = () => {
     mainWindow.webContents.send('copySelection');
   };
 
   const convert = () => {
+    // when developing toggle comments on next 2 lines
     const clipboardContent = clipboard.readText();
     //const clipboardContent =  '{"Crows":{"players":{"Ben":{"position":"1B"},"Ty":{"position":"2B"}}},"Pigeons":{"players":{"Bill":{"position":"1B"},"Tim":{"position":"2B"}}},"Seagulls":{"players":{"Bob":{"position":"1B"},"Tom":{"position":"2B"}}}}';
     logger.log('convert called');
     try {
-      const prettyJson = JSON.stringify(JSON.parse(clipboardContent), null, 2);
-      console.log(prettyJson);
-      mainWindow.webContents.send('formattedJson', prettyJson);
-      console.log(clipboardContent);
+      const parsedJson = JSON.parse(clipboardContent);
+      const prettyJson = JSON.stringify(parsedJson, null, 2);
+      mainWindow.webContents.send('formattedJson', parsedJson);
       mainWindow.show();
       clipboard.writeText(prettyJson);
     } catch (error) {
       // not valid json.....don't show anything
-      mainWindow.webContents.send('formattedJson', "probably not json....try again ?");
+      mainWindow.webContents.send('formattedJson', {error: "hmmm, it looks like the clipboard does not\n contain valid json....copy and try again ?"});
     }
   }
 
@@ -108,13 +100,6 @@ ipc.on('convertToJavascriptObject', () => {
 });
 
 ipc.on('find', (event, args) => {
-  logger.log('find fired', args);
   const id = mainWindow.webContents.findInPage(args.term)
   console.log('id', id)
 });
-
-
-// globalShortcut.register('CommandOrControl+F', () => {
-//   console.log('CommandOrControl+F is pressed')
-//   mainWindow.webContents.send('focusFindTextField');
-// })
