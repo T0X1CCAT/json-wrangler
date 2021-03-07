@@ -1,29 +1,26 @@
-
+import ReactDOM from 'react-dom';
+import React from 'react';
 import electron  from 'electron';
+import  JsonDisplay from './jsonDisplay' 
+
 const clipboard = electron.clipboard;
 const ipc = electron.ipcRenderer;
 
-console.log('loaded');
+ipc.on('formattedJson', (evt, parsedJson) => {
 
-ipc.on('formattedJson', (evt, formattedJson) => {
-	console.log('b');
-	document.getElementById("jsonDisplay").innerText = formattedJson;
+	ReactDOM.render(
+		<JsonDisplay parsedJson={parsedJson}/>,
+		document.getElementById( 'jsonDisplay' ),
+	);
 });
 
 ipc.on('copySelection', (evt, formattedJson) => {
-	console.log('copy selection');
 	const selectedJson =  window.getSelection().toString();
 	clipboard.writeText(selectedJson);
 });
 
 document.getElementById('reload').addEventListener('click', () => {
-	console.log('reload');
 	ipc.send('reload');
-});
-
-document.getElementById('copy').addEventListener('click', () => {
-	console.log('copy');
-	ipc.send('copy');
 });
 
 document.getElementById('find').addEventListener('click', () => {
