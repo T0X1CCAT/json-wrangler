@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/html">
+    
+    <head>
+        <style>
+            html {
+                background-color: black;
+            }
+            div {
+
+                color: lawngreen;
+            }
+
+            .button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 3px 13px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+
+        </style>
+    </head>
+        
+    <body>
+    <div>
+        <button class="button" id="reload">Reload</button>
+        <button class="button" id="copy">Copy</button>
+        <button class="button" id="convertToJavascript">Convert to JS</button>
+        <input type="text" placeholder="type to search" id="searchText"/><button class="button" id="find">Find</button>
+    </div>
+        <div >
+            <pre id="jsonDisplay">
+                
+            </pre>        
+        </div>
+    </body>
+
+</html>

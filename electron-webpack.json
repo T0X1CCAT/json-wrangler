@@ -1,0 +1,12 @@
+{
+  "title": "JSON Wrangler",
+  "main": {
+    "sourceDirectory": "src/main"
+  },
+  "renderer": {
+    "sourceDirectory": "src/renderer",
+    "template": "src/index.html"
+  },
+  "commonSourceDirectory": "src/common",
+  "staticSourceDirectory": "static"
+}
